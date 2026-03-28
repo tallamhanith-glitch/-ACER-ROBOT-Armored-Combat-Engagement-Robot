@@ -1,0 +1,113 @@
+# ============================================================
+# ACER Robot Configuration
+# Version: 1.0.0 | March 2025
+# ============================================================
+
+robot:
+  id: "ACER-001"
+  mode: "autonomous"           # autonomous | teleoperated | hybrid | safe
+
+# ── Navigation ──────────────────────────────────────────────
+navigation:
+  max_speed: 2.5               # m/s
+  max_angular_speed: 1.8       # rad/s
+  obstacle_clearance: 0.5      # meters
+  goal_tolerance_xy: 0.15      # meters
+  goal_tolerance_yaw: 0.1      # radians
+  slam_algorithm: "cartographer"
+  map_resolution: 0.05         # meters/cell
+  planning_frequency: 5.0      # Hz
+
+# Default patrol route (world frame coordinates)
+default_patrol:
+  waypoints:
+    - { x: 0.0,   y: 0.0,   yaw: 0.0 }
+    - { x: 10.0,  y: 0.0,   yaw: 0.0 }
+    - { x: 10.0,  y: 10.0,  yaw: 1.57 }
+    - { x: 0.0,   y: 10.0,  yaw: 3.14 }
+  loop: true
+
+# ── Sensors ─────────────────────────────────────────────────
+sensors:
+  lidar:
+    model: "VLP-32C"
+    range_m: 200
+    frequency_hz: 20
+    topic: "/velodyne_points"
+
+  thermal:
+    model: "FLIR-Lepton-3.5"
+    resolution: [160, 120]
+    min_temp_c: -10
+    max_temp_c: 140
+    topic: "/thermal/image_raw"
+
+  optical:
+    cameras:
+      - id: "front_left"
+        resolution: [4056, 3040]
+        fps: 30
+        topic: "/camera/front_left/image_raw"
+      - id: "front_right"
+        resolution: [4056, 3040]
+        fps: 30
+        topic: "/camera/front_right/image_raw"
+
+  imu:
+    model: "VectorNav-VN-300"
+    rate_hz: 200
+    topic: "/imu/data"
+
+  acoustic:
+    num_mics: 8
+    array_radius_m: 0.15
+    sample_rate_hz: 48000
+    topic: "/acoustic/raw"
+
+# ── Threat Assessment ────────────────────────────────────────
+threat_assessment:
+  confidence_threshold: 0.85
+  response_latency_ms: 150
+  classification_model: "models/threat_classifier_v2.onnx"
+  threat_timeout_s: 10
+  max_tracked_threats: 32
+  engagement_auth_level: "HIGH"     # Minimum level to authorize engagement
+
+# ── Communication ────────────────────────────────────────────
+communication:
+  encryption: "AES-256-GCM"
+  primary_channel: "rfd900x"
+  fallback_channel: "iridium"
+  heartbeat_interval_s: 1.0
+  heartbeat_timeout_s: 15.0
+  telemetry_rate_hz: 2.0
+  command_server: "tcp://192.168.1.1:5555"
+  telemetry_bind: "tcp://*:5556"
+  # master_secret loaded from environment variable ACER_COMM_SECRET
+
+# ── Maintenance ──────────────────────────────────────────────
+maintenance:
+  check_interval_s: 5
+  battery:
+    capacity_ah: 100
+    rated_capacity_ah: 100
+    cell_count: 16
+    min_soc_abort: 0.10      # Abort mission below 10%
+    low_soc_warn: 0.20
+  motors:
+    rated_run_hours: 5000
+    max_winding_temp_c: 100
+    vibration_threshold_ms2: 3.0
+  compute:
+    max_cpu_temp_c: 90
+    max_gpu_temp_c: 95
+    memory_warn_pct: 85
+
+# ── Logging ──────────────────────────────────────────────────
+logging:
+  level: "INFO"                # DEBUG | INFO | WARNING | ERROR
+  file: "logs/acer.log"
+  max_size_mb: 100
+  backup_count: 5
+  telemetry_db: "data/telemetry.db"
+  mission_log_db: "data/missions.db"

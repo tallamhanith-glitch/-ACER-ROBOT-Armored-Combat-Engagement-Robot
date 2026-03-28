@@ -1,0 +1,35 @@
+# ACER Robot - Python Dependencies
+# Install: pip install -r requirements.txt
+
+# Core robotics
+rclpy>=3.3.0
+nav2-msgs>=1.1.0
+geometry-msgs>=4.2.0
+
+# Numerical / ML
+numpy>=1.24.0
+scipy>=1.10.0
+onnxruntime-gpu>=1.15.0       # or onnxruntime for CPU-only
+
+# Communication & encryption
+pyzmq>=25.0.0
+cryptography>=41.0.0
+
+# Sensor processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Monitoring & telemetry
+influxdb-client>=3.6.0
+psutil>=5.9.0
+
+# Configuration
+PyYAML>=6.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+
+# Utilities
+dataclasses-json>=0.6.0

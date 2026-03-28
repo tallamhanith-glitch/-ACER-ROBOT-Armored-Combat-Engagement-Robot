@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Coverage
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+
+# Logs & data
+logs/
+data/
+*.log
+*.db
+
+# Models (large binaries)
+models/*.onnx
+models/*.pt
+models/*.tflite
+
+# ROS2
+install/
+build/
+log/
+devel/
+
+# Secrets
+*.pem
+*.key
+*.secret
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
