@@ -24,7 +24,6 @@
 - [Testing](#testing)
 - [API Reference](#api-reference)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
