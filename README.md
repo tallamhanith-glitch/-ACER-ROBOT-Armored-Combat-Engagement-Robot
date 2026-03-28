@@ -225,3 +225,4 @@ pytest tests/ --cov=src --cov-report=html
 ```
 
 ---
+⚠️ DISCLAIMER: ACER is an experimental research platform. Any deployment in real operational environments must comply with applicable laws and military use regulations.
